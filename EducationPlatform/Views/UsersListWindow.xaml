@@ -1,0 +1,56 @@
+﻿<Window x:Class="EducationPlatform.Views.UsersListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EducationPlatform.Views"
+        xmlns:models="clr-namespace:EducationPlatform.Models.EntityLayer"
+        xmlns:viewModels="clr-namespace:EducationPlatform.ViewModels"
+        mc:Ignorable="d"
+        FontFamily="Arial"
+        Background="Lavender"
+        Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:UsersListViewModel/>
+    </Window.DataContext>
+    <StackPanel>
+        <WrapPanel>
+            <Button Content="Add" Margin="15" Width="100" Height="30" Command="{Binding AddUserCommand}" Background="SlateBlue"/>
+            <Button Content="Update" Margin="15" Width="100" Height="30" Command="{Binding UpdateUserCommand}" Background="SlateBlue"/>
+            <Button Content="Delete" Margin="15" Width="100" Height="30" Command="{Binding DeleteUserCommand}" Background="SlateBlue"/>
+        </WrapPanel>
+        <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+            <Label Width="150" FontSize="15">Username:</Label>
+            <TextBox Width="200" Text="{Binding NewUsername}" />
+            <Label Width="150" FontSize="15">Person ID:</Label>
+            <TextBox Width="200" Text="{Binding PersonId}" />
+        </StackPanel>
+        <WrapPanel Margin="0,15,0,0">
+            <Label Width="150" FontSize="15">Password:</Label>
+            <TextBox Width="200" Text="{Binding NewPassword}" />
+        </WrapPanel>
+        <WrapPanel Margin="0,15,0,0">
+            <Label Width="150" FontSize="15">Role:</Label>
+            <ComboBox Grid.Row="5" Width="200"  SelectedItem="{Binding SelectedRole}">
+                <ComboBox.ItemsSource>
+                    <x:Array Type="{x:Type models:Role}">
+                        <models:Role>Student</models:Role>
+                        <models:Role>Teacher</models:Role>
+                        <models:Role>Admin</models:Role>
+                        <models:Role>ClassMaster</models:Role>
+                    </x:Array>
+                </ComboBox.ItemsSource>
+            </ComboBox>
+        </WrapPanel>
+        <ListView Margin="0,15,0,0" Height="250" ItemsSource="{Binding Users}" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItem="{Binding SelectedUser}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Username}" />
+                    <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" />
+                    <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Role}" />
+                    <GridViewColumn Header="PersonId" DisplayMemberBinding="{Binding IdPerson}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Window>
